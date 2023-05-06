@@ -13,7 +13,7 @@ class ManiViewModel : ViewModel() {
         Gson().fromJson(FakeData.formConfigJson, InputJson::class.java)
 
     val formValue = mapOf<String, Any?>(
-        Pair("age",20)
+
     )
 
 }

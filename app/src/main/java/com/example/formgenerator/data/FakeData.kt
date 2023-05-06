@@ -18,7 +18,14 @@ data class FakeData(
                 "type":"TEXT_FIELD",
                 "dependencies":[],
                 "dataPath":"firstName",
-                "hint":"Enter your first name"
+                "hint":"Enter your first name",
+                "validations":[
+                    {
+                        "type":"REQUIRED",
+                        "message":"This field can not be empty",
+                        "dependencies":[]
+                    }
+                ]
               },
               {
                 "id":2,
@@ -33,6 +40,27 @@ data class FakeData(
                 "dependencies":[],
                 "dataPath":"age",
                 "hint":"Enter your age"
+              },
+              {
+                "id":10,
+                "type":"TEXT_FIELD",
+                "dependencies":[],
+                "dataPath":"father_age",
+                "hint":"Enter your father's age",
+                "validations":[
+                    {
+                        "type":"DEPENDENT",
+                        "message":"father's age should be more than age",
+                        "dependencies":[
+                            {
+                                "type":"VISIBILITY",
+                                "rule":{
+                                "<" : [ { "var" : "age" }, { "var" : "father_age" } ]
+                                }
+                            }
+                        ]
+                    }
+                ]
               }
             ],
           "dependencies":[]
@@ -73,7 +101,7 @@ data class FakeData(
                     }
                   ],
                 "dataPath":null,
-                "text":"Your income is mroe than 1000"
+                "text":"Your income is more than 1000"
               }
             ]
           ,
