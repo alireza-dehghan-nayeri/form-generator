@@ -24,18 +24,22 @@ data class ValidationCheckModel(
 @Composable
 fun Form(viewModel: ManiViewModel) {
 
+    // the form config that was received from server
     val form = viewModel.form
 
+    // the form value that was received from server can be empty if it is the first time
     val formValueState = remember {
         viewModel.formValue
     }
 
     val screenConfigs = form?.formConfig?.screenConfigs ?: listOf()
 
+    // keep track of the screen being seen by user
     var currentScreen by remember {
         mutableStateOf(0)
     }
 
+    // as there might be a dependency between screens which may lead to a screen being invisible we keep track of the last screen
     var lastScreen by remember {
         mutableStateOf(0)
     }
@@ -54,6 +58,7 @@ fun Form(viewModel: ManiViewModel) {
         }
     }
 
+    // the lambda which is being used to update the form value
     val onValueChange: (Map<String, Any?>) -> Unit = {
         formValueState[it.keys.first().toString()] = it[it.keys.first()]
     }
@@ -62,7 +67,8 @@ fun Form(viewModel: ManiViewModel) {
 
         screenConfigs.getOrNull(currentScreen)
             ?.let { config ->
-                if (screenDependencyHandler(
+                // first we check if the screen dependency condition is true as the screen is either visible or invisible by dependency condition
+                if (dependencyHandler(
                         dependencies = config.dependencies,
                         formValue = formValueState
                     )
@@ -75,6 +81,7 @@ fun Form(viewModel: ManiViewModel) {
                         nextScreen = nextScreen,
                         previousScreen = previousScreen
                     )
+                // if the screen dependency condition is false so we need to skip the screen
                 else {
                     if (lastScreen <= currentScreen) {
                         nextScreen.invoke()
@@ -108,20 +115,25 @@ fun Screen(
 ) {
     val widgetConfigs = screenConfig.widgetConfigs
 
-    var allWidgetsValidated by remember {
-        mutableStateOf(true)
-    }
+    // we use this list to see if there is any invalid widget
+    val validationCheckModels = mutableListOf<ValidationCheckModel>()
 
-    val onWidgetValidationError = {
-        allWidgetsValidated = false
+    // we use this variable to know when to show the validation errors to user as the errors should not be show if it is the first time user sees the screen
+    var shouldShowValidationError by remember {
+        mutableStateOf(false)
     }
 
     Scaffold(
         bottomBar = {
             Row {
                 Button(onClick = {
-
-                    nextScreen.invoke()
+                    if (validationCheckModels.all() {
+                            it.valid
+                        }) {
+                        nextScreen.invoke()
+                    } else {
+                        shouldShowValidationError = true
+                    }
                 }) {
                     Text(text = "next")
                 }
@@ -135,20 +147,34 @@ fun Screen(
         }
     ) {
         it
+        // we clear the list as the whole screen is being recomposed after value change so the previous validation errors are useless
+        validationCheckModels.clear()
         Column(Modifier.padding(paddingValues)) {
             widgetConfigs.forEach { widgetConfig ->
-                if (widgetDependencyHandler(
+                // we check the dependency condition of the widget
+                if (dependencyHandler(
                         dependencies = widgetConfig.dependencies,
                         formValue = formValue
                     )
                 ) {
+                    // we check the if the widget value is valid
+                    val validationCheckModel = widgetValidationHandler(
+                        widgetConfig = widgetConfig,
+                        formValue = formValue
+                    )
+
+                    validationCheckModels.add(validationCheckModel)
+
                     Widget(
                         widgetConfig = widgetConfig,
                         value = formValue[widgetConfig.dataPath],
-                        onValueChange = onValueChange,
-                        validationCheckModel = widgetValidationHandler(
-                            widgetConfig = widgetConfig,
-                            formValue = formValue
+                        onValueChange = { value ->
+                            shouldShowValidationError = true
+                            onValueChange.invoke(value)
+                        },
+                        validationCheckModel = if (shouldShowValidationError) validationCheckModel else ValidationCheckModel(
+                            null,
+                            true
                         )
                     )
                 }
@@ -164,6 +190,7 @@ fun Widget(
     onValueChange: (Map<String, Any>) -> Unit,
     validationCheckModel: ValidationCheckModel = ValidationCheckModel(message = null, valid = true)
 ) {
+    // we check the widget type and show the widget accordingly
     when (WidgetType.valueOf(widgetConfig.type)) {
         WidgetType.TEXT_FIELD -> TextFieldWidget(
             onValueChange = {
@@ -198,13 +225,13 @@ fun widgetValidationHandler(
         when (ValidationType.valueOf(it.type)) {
             ValidationType.REQUIRED -> {
                 val value = formValue[widgetConfig.dataPath]?.toString()
-                if (value?.isBlank() == true) {
+                if (value.isNullOrBlank()) {
                     validationCheckModel.valid = false
                     validationCheckModel.message = it.message
                 }
             }
             ValidationType.DEPENDENT -> {
-                if (!widgetDependencyHandler(
+                if (!dependencyHandler(
                         dependencies = it.dependencies,
                         formValue = formValue
                     )
@@ -220,13 +247,13 @@ fun widgetValidationHandler(
 }
 
 @Composable
-fun screenDependencyHandler(
+fun dependencyHandler(
     dependencies: List<DependencyConfig>,
     formValue: Map<String, Any?>
 ): Boolean {
     val booleanList = mutableListOf<Boolean>()
     val jsonLogic = JsonLogic()
-    var shouldShowScreen = true
+    var conditionEvaluation = true
     if (dependencies.isNotEmpty()) {
         dependencies.forEach {
             val rule = JSONObject(it.rule).toString()
@@ -235,31 +262,9 @@ fun screenDependencyHandler(
                 output.toString() == "true"
             )
         }
-        shouldShowScreen = !booleanList.any { !it }
+        conditionEvaluation = !booleanList.any { !it }
     }
-    return shouldShowScreen
-}
-
-@Composable
-fun widgetDependencyHandler(
-    dependencies: List<DependencyConfig>,
-    formValue: Map<String, Any?>
-): Boolean {
-    val booleanList = mutableListOf<Boolean>()
-    val jsonLogic = JsonLogic()
-    var shouldShowWidget = true
-    if (dependencies.isNotEmpty()) {
-        dependencies.forEach {
-            val rule = JSONObject(it.rule).toString()
-            val output = jsonLogic.apply(rule, formValue)
-
-            booleanList.add(
-                output.toString() == "true"
-            )
-        }
-        shouldShowWidget = !booleanList.any { !it }
-    }
-    return shouldShowWidget
+    return conditionEvaluation
 }
 
 @Composable

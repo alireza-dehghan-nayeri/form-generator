@@ -33,7 +33,6 @@ fun FormJsonGenerator(viewModel: ManiViewModel) {
         mutableStateOf(0)
     }
 
-
     val nextScreen = {
         if (currentScreen < screenConfigs.size) {
             currentScreen++
@@ -75,7 +74,9 @@ fun FormJsonGenerator(viewModel: ManiViewModel) {
     {
         it
         screenConfigs.getOrNull(currentScreen)?.let { config ->
-            ScreenJsonGenerator(config){}
+            ScreenJsonGenerator(config){
+                
+            }
         }
         if (currentScreen == screenConfigs.size) {
             Button(onClick = {
