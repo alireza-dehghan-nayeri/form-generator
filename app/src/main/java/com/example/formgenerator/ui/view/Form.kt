@@ -81,7 +81,7 @@ fun Form(viewModel: ManiViewModel) {
                         nextScreen = nextScreen,
                         previousScreen = previousScreen
                     )
-                // if the screen dependency condition is false so we need to skip the screen
+                // if the screen dependency condition is false so we should skip the screen
                 else {
                     if (lastScreen <= currentScreen) {
                         nextScreen.invoke()
