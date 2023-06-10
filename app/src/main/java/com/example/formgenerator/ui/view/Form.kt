@@ -85,7 +85,7 @@ fun Form(viewModel: ManiViewModel) {
         if (currentScreen == screenConfigs.size) {
             Button(onClick = {
                 Log.d("TAGTAG", "this is the form value now")
-                Log.d("TAGTAG", formValueState.toString())
+                Log.d("TAGTAG", formValueState.toMap().toString())
             }) {
                 Text(text = "SAVE")
             }
