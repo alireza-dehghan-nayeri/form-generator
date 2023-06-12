@@ -12,7 +12,7 @@ import com.example.formgenerator.ui.theme.FormGeneratorTheme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val viewModel: ManiViewModel by viewModels()
+        val viewModel: MainViewModel by viewModels()
         setContent {
             FormGeneratorTheme {
                 // A surface container using the 'background' color from the theme

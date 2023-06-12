@@ -8,7 +8,7 @@ import com.example.formgenerator.model.InputJson
 import com.google.gson.Gson
 
 
-class ManiViewModel : ViewModel() {
+class MainViewModel : ViewModel() {
 
     val form: InputJson? =
         Gson().fromJson(FakeData.formConfigJson, InputJson::class.java)
