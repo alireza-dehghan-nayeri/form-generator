@@ -30,6 +30,7 @@ fun Widget(
         WidgetType.RADIO_BUTTON -> TODO()
         WidgetType.RADIO_GROUP -> RadioGroupWidget(
             items = widgetConfig.items ?: listOf(),
+            value = value?.toString() ?: "".ifBlank { "" },
             onValueChange = {
                 onValueChange(mapOf(Pair(widgetConfig.dataPath, it)))
             },
@@ -41,10 +42,12 @@ fun Widget(
         WidgetType.CHECKBOX_GROUP -> TODO()
         WidgetType.DROP_DOWN_MENU -> DropDownMenuWidget(
             options = widgetConfig.options ?: listOf(),
+            value = value?.toString() ?: "".ifBlank { "" },
             onValueChange = {
                 onValueChange(mapOf(Pair(widgetConfig.dataPath, it)))
             },
-            validationCheckModel = validationCheckModel
+            validationCheckModel = validationCheckModel,
+            text = widgetConfig.text?:""
         )
 
         WidgetType.BOTTOM_SHEET_SINGLE_SELECT -> TODO()

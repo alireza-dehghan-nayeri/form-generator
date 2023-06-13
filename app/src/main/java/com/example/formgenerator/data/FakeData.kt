@@ -69,11 +69,12 @@ data class FakeData(
             "validations": [
               {
                 "type": "REQUIRED",
-                "message": "This field can not be empty",
+                "message": "Please choose an option",
                 "dependencies": []
               }
             ],
             "dependencies": [],
+            "text": "Select your gender",
             "options": [
               "Male",
               "Female"
@@ -84,7 +85,7 @@ data class FakeData(
       },
       {
         "id": 2,
-        "title": "\"Physical Condition\"",
+        "title": "Physical Condition",
         "widgetConfigs": [
           {
             "id": 5,
@@ -123,12 +124,12 @@ data class FakeData(
             "validations": [
               {
                 "type": "REQUIRED",
-                "message": "This field can not be empty",
+                "message": "Please choose an item",
                 "dependencies": []
               }
             ],
             "dependencies": [],
-            "text": "Are you phisically active?",
+            "text": "Are you physically active?",
             "items": [
               "Yes",
               "No"
@@ -138,13 +139,7 @@ data class FakeData(
             "id": 8,
             "type": "RADIO_GROUP",
             "dataPath": "hasDenseBreast",
-            "validations": [
-              {
-                "type": "REQUIRED",
-                "message": "This field can not be empty",
-                "dependencies": []
-              }
-            ],
+            "validations": [],
             "dependencies": [],
             "text": "Do you have dense breast?",
             "items": [
@@ -157,7 +152,7 @@ data class FakeData(
       },
       {
         "id": 3,
-        "title": "\"Reproductive History\"",
+        "title": "Reproductive History",
         "widgetConfigs": [
           {
             "id": 9,
@@ -178,13 +173,7 @@ data class FakeData(
             "id": 10,
             "type": "RADIO_GROUP",
             "dataPath": "beenPregnant",
-            "validations": [
-              {
-                "type": "REQUIRED",
-                "message": "This field can not be empty",
-                "dependencies": []
-              }
-            ],
+            "validations": [],
             "dependencies": [],
             "text": "Have you ever been pregnant?",
             "items": [
@@ -210,16 +199,10 @@ data class FakeData(
           {
             "id": 12,
             "type": "RADIO_GROUP",
-            "dataPath": "menopaused",
-            "validations": [
-              {
-                "type": "REQUIRED",
-                "message": "This field can not be empty",
-                "dependencies": []
-              }
-            ],
+            "dataPath": "menopause",
+            "validations": [],
             "dependencies": [],
-            "text": "are you menopaused",
+            "text": "Are you menopause",
             "items": [
               "Yes",
               "No"
@@ -241,23 +224,24 @@ data class FakeData(
             "keyboardType": "Number"
           }
         ],
-        "dependencies": []
+        "dependencies": [
+            {
+                "type":"VISIBILITY",
+                "rule":{
+                  "==" : [ { "var" : "gender" }, "Female" ]
+                }
+            }
+        ]
       },
       {
         "id": 4,
-        "title": "\"Health\"",
+        "title": "Health",
         "widgetConfigs": [
           {
             "id": 14,
             "type": "RADIO_GROUP",
             "dataPath": "drinker",
-            "validations": [
-              {
-                "type": "REQUIRED",
-                "message": "This field can not be empty",
-                "dependencies": []
-              }
-            ],
+            "validations": [],
             "dependencies": [],
             "text": "are you a drinker?",
             "items": [
@@ -269,13 +253,7 @@ data class FakeData(
             "id": 15,
             "type": "RADIO_GROUP",
             "dataPath": "diagnosedBefore",
-            "validations": [
-              {
-                "type": "REQUIRED",
-                "message": "This field can not be empty",
-                "dependencies": []
-              }
-            ],
+            "validations": [],
             "dependencies": [],
             "text": "have you been diagnosed before?",
             "items": [
@@ -287,13 +265,7 @@ data class FakeData(
             "id": 16,
             "type": "RADIO_GROUP",
             "dataPath": "exposedToDES",
-            "validations": [
-              {
-                "type": "REQUIRED",
-                "message": "This field can not be empty",
-                "dependencies": []
-              }
-            ],
+            "validations": [],
             "dependencies": [],
             "text": "have you or your mother taken DES drug?",
             "items": [
@@ -305,13 +277,7 @@ data class FakeData(
             "id": 17,
             "type": "RADIO_GROUP",
             "dataPath": "usedHormones",
-            "validations": [
-              {
-                "type": "REQUIRED",
-                "message": "This field can not be empty",
-                "dependencies": []
-              }
-            ],
+            "validations": [],
             "dependencies": [],
             "text": "Have you used hormon drugs?",
             "items": [
@@ -323,13 +289,7 @@ data class FakeData(
             "id": 18,
             "type": "RADIO_GROUP",
             "dataPath": "hadRadiationTherapy",
-            "validations": [
-              {
-                "type": "REQUIRED",
-                "message": "This field can not be empty",
-                "dependencies": []
-              }
-            ],
+            "validations": [],
             "dependencies": [],
             "text": "Have you done radiation therapy?",
             "items": [
@@ -342,19 +302,13 @@ data class FakeData(
       },
       {
         "id": 5,
-        "title": "\"Family History\"",
+        "title": "Family History",
         "widgetConfigs": [
           {
             "id": 19,
             "type": "RADIO_GROUP",
             "dataPath": "breastCancerHistoryInFamily",
-            "validations": [
-              {
-                "type": "REQUIRED",
-                "message": "This field can not be empty",
-                "dependencies": []
-              }
-            ],
+            "validations": [],
             "dependencies": [],
             "text": "Have any members of your family diagnosed with breast cancer?",
             "items": [

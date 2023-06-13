@@ -1,21 +1,28 @@
 package com.example.formgenerator.ui.view
 
 import android.util.Log
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.Button
+import androidx.compose.material.LinearProgressIndicator
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.formgenerator.ui.theme.FormGeneratorTheme
@@ -39,6 +46,10 @@ fun Form(viewModel: MainViewModel) {
         mutableStateOf(0)
     }
 
+    var progress by remember {
+        mutableStateOf(1f / screenConfigs.size.toFloat())
+    }
+
     // as there might be a dependency between screens which may lead to a screen being invisible we keep track of the last screen
     var lastScreen by remember {
         mutableStateOf(0)
@@ -46,8 +57,6 @@ fun Form(viewModel: MainViewModel) {
 
     // we use this list to see if there is any invalid widget
     val validationCheckModels = mutableListOf<ValidationCheckModel>()
-
-//    var enabled by remember { mutableStateOf(validationCheckModels.all { it.valid }) }
 
     // we use this variable to know when to show the validation errors to user as the errors should
     // not be show if it is the first time user sees the screen
@@ -59,6 +68,7 @@ fun Form(viewModel: MainViewModel) {
         if (currentScreen < screenConfigs.size) {
             lastScreen = currentScreen
             currentScreen++
+            progress = (currentScreen + 1).toFloat() / screenConfigs.size.toFloat()
         }
     }
 
@@ -66,6 +76,7 @@ fun Form(viewModel: MainViewModel) {
         if (currentScreen > 0) {
             lastScreen = currentScreen
             currentScreen--
+            progress = (currentScreen + 1).toFloat() / screenConfigs.size.toFloat()
         }
     }
 
@@ -74,33 +85,22 @@ fun Form(viewModel: MainViewModel) {
         formValueState[it.keys.first().toString()] = it[it.keys.first()]
     }
 
-    Scaffold(Modifier.padding(all = 32.dp),
+    Scaffold(modifier = Modifier.padding(all = 32.dp),
+        topBar = { ScreenTopAppBar(progress = progress) },
         bottomBar = {
-            Row(
-                modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Button(modifier = Modifier.weight(0.5f), onClick = {
-                    previousScreen.invoke()
-                }) {
-                    Text(text = "previous")
-                }
-                Spacer(modifier = Modifier.width(24.dp))
-                Button(modifier = Modifier.weight(0.5f), /*enabled = enabled,*/
-                    onClick = {
-                        if (validationCheckModels.all {
-                                it.valid
-                            }
-                        ) {
-                            shouldShowValidationError = true
-                            nextScreen.invoke()
-                        } else {
-                            shouldShowValidationError = true
-                        }
+            BottomAppBar(onPreviousScreenButtonClick = {
+                previousScreen.invoke()
+            }, onNextScreenButtonClick = {
+                if (validationCheckModels.all {
+                        it.valid
                     }
                 ) {
-                    Text(text = "next")
+                    shouldShowValidationError = false
+                    nextScreen.invoke()
+                } else {
+                    shouldShowValidationError = true
                 }
-            }
+            })
         }) {
         screenConfigs.getOrNull(currentScreen)?.let { config ->
 
@@ -117,9 +117,9 @@ fun Form(viewModel: MainViewModel) {
                 shouldShowValidationError = shouldShowValidationError
             )
             // if the screen dependency condition is false so we should skip the screen
+            // as the validation is checked before when next is clicked we do not check it here
             else {
                 if (lastScreen <= currentScreen) {
-                    // todo: check for validations ??????
                     nextScreen.invoke()
                 }
                 if (lastScreen > currentScreen) {
@@ -135,6 +135,48 @@ fun Form(viewModel: MainViewModel) {
             }) {
                 Text(text = "SAVE")
             }
+        }
+    }
+}
+
+@Composable
+fun ScreenTopAppBar(progress: Float) {
+    val progressAnimation by animateFloatAsState(
+        targetValue = progress,
+        animationSpec = tween(durationMillis = 1500, easing = FastOutSlowInEasing)
+    )
+    Column() {
+        TopAppBar() {
+            Text(text = "Form Title")
+        }
+        LinearProgressIndicator(
+            modifier = Modifier.fillMaxWidth(),
+            progress = progressAnimation,
+            color = Color.Blue
+        )
+    }
+}
+
+@Composable
+fun BottomAppBar(
+    onNextScreenButtonClick: () -> Unit,
+    onPreviousScreenButtonClick: () -> Unit
+) {
+    Row(
+        modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        Button(modifier = Modifier.weight(0.5f), onClick = {
+            onPreviousScreenButtonClick.invoke()
+        }) {
+            Text(text = "previous")
+        }
+        Spacer(modifier = Modifier.width(24.dp))
+        Button(modifier = Modifier.weight(0.5f),
+            onClick = {
+                onNextScreenButtonClick.invoke()
+            }
+        ) {
+            Text(text = "next")
         }
     }
 }

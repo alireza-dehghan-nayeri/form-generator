@@ -1,5 +1,8 @@
 package com.example.formgenerator.ui.view.widgets
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.DropdownMenuItem
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ExposedDropdownMenuBox
@@ -12,6 +15,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.formgenerator.ui.theme.FormGeneratorTheme
 import com.example.formgenerator.ui.view.ValidationCheckModel
@@ -20,49 +25,54 @@ import com.example.formgenerator.ui.view.ValidationCheckModel
 @Composable
 fun DropDownMenuWidget(
     options: List<String>,
+    text: String,
+    value: String,
     onValueChange: (String) -> Unit,
     validationCheckModel: ValidationCheckModel,
 ) {
-
-    // todo: add validation
-
     var expanded by remember { mutableStateOf(false) }
-    var selectedOptionText by remember { mutableStateOf(options[0]) }
 
-    ExposedDropdownMenuBox(
-        expanded = expanded,
-        onExpandedChange = {
-            expanded = !expanded
-        }
-    ) {
-        TextField(
-            readOnly = true,
-            value = selectedOptionText,
-            onValueChange = { },
-            trailingIcon = {
-                ExposedDropdownMenuDefaults.TrailingIcon(
-                    expanded = expanded
-                )
-            },
-            colors = ExposedDropdownMenuDefaults.textFieldColors()
-        )
-        ExposedDropdownMenu(
+    Column {
+        ExposedDropdownMenuBox(
+            modifier = Modifier.fillMaxWidth(),
             expanded = expanded,
-            onDismissRequest = {
-                expanded = false
+            onExpandedChange = {
+                expanded = !expanded
             }
         ) {
-            options.forEach { selectionOption ->
-                DropdownMenuItem(
-                    onClick = {
-                        onValueChange(selectionOption)
-                        selectedOptionText = selectionOption
-                        expanded = false
+            TextField(
+                modifier = Modifier.fillMaxWidth(),
+                readOnly = true,
+                value = value.ifBlank { text },
+                onValueChange = { },
+                trailingIcon = {
+                    ExposedDropdownMenuDefaults.TrailingIcon(
+                        expanded = expanded
+                    )
+                },
+                colors = ExposedDropdownMenuDefaults.textFieldColors()
+            )
+            ExposedDropdownMenu(
+                modifier = Modifier.fillMaxWidth(),
+                expanded = expanded,
+                onDismissRequest = {
+                    expanded = false
+                }
+            ) {
+                options.forEach { selectionOption ->
+                    DropdownMenuItem(
+                        onClick = {
+                            onValueChange(selectionOption)
+                            expanded = false
+                        }
+                    ) {
+                        Text(text = selectionOption)
                     }
-                ) {
-                    Text(text = selectionOption)
                 }
             }
+        }
+        AnimatedVisibility(visible = !validationCheckModel.valid) {
+            Text(text = validationCheckModel.message ?: "", color = Color.Red)
         }
     }
 }
@@ -81,9 +91,10 @@ fun DropDownMenuWidgetPreview() {
                     "Option 5"
                 ),
                 onValueChange = {
-                    it
                 },
                 validationCheckModel = ValidationCheckModel("", false),
+                text = "question",
+                value = ""
             )
         }
     }
