@@ -21,7 +21,8 @@ fun Widget(
             },
             value = value?.toString() ?: "".ifBlank { "" },
             validationCheckModel = validationCheckModel,
-            hint = widgetConfig.hint
+            hint = widgetConfig.hint,
+            keyboardType = widgetConfig.keyboardType ?: ""
         )
 
         WidgetType.RADIO_BUTTON -> TODO()

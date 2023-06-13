@@ -8,6 +8,7 @@ data class WidgetConfig(
     val dependencies: List<DependencyConfig>,
     val hint: String?,
     val text: String?,
-    val validations: List<ValidationConfig>?
+    val validations: List<ValidationConfig>?,
+    val keyboardType: String?
 )
 

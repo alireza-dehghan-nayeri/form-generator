@@ -4,6 +4,7 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
@@ -15,6 +16,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.formgenerator.ui.theme.FormGeneratorTheme
@@ -25,22 +27,37 @@ fun TextFieldWidget(
     onValueChange: (String) -> Unit,
     value: String,
     validationCheckModel: ValidationCheckModel,
-    hint: String?
+    hint: String?,
+    keyboardType: String = "Text"
 ) {
-    Column(modifier = Modifier.padding(bottom = 8.dp)) {
-        TextField(
-            modifier = Modifier
-                .fillMaxWidth(),
-//                .padding(bottom = 8.dp),
-            value = value,
-            onValueChange = {
-                onValueChange(it)
-            },
-            placeholder = {
-                Text(text = hint ?: "")
-            },
-            isError = !validationCheckModel.valid,
-            colors = TextFieldDefaults.textFieldColors(backgroundColor = Color.Transparent, unfocusedIndicatorColor = MaterialTheme.colors.secondary)
+    Column(
+        modifier = Modifier.padding(bottom = 8.dp)
+    ) {
+        TextField(modifier = Modifier.fillMaxWidth(), value = value, onValueChange = {
+            onValueChange(it)
+        }, placeholder = {
+            Text(text = hint ?: "")
+        }, isError = !validationCheckModel.valid, colors = TextFieldDefaults.textFieldColors(
+            backgroundColor = Color.Transparent,
+            unfocusedIndicatorColor = MaterialTheme.colors.secondary,
+
+            ), label = {
+            Text(text = "label")
+        },
+            keyboardOptions = KeyboardOptions(
+                keyboardType = when (keyboardType) {
+                    "Text" -> KeyboardType.Text
+                    "Ascii" -> KeyboardType.Ascii
+                    "Number" -> KeyboardType.Number
+                    "Phone" -> KeyboardType.Phone
+                    "Uri" -> KeyboardType.Uri
+                    "Email" -> KeyboardType.Email
+                    "Password" -> KeyboardType.Password
+                    "NumberPassword" -> KeyboardType.NumberPassword
+                    "Decimal" -> KeyboardType.Decimal
+                    else -> KeyboardType.Text
+                }
+            )
         )
         AnimatedVisibility(visible = !validationCheckModel.valid) {
             Text(text = validationCheckModel.message ?: "", color = Color.Red)
@@ -58,9 +75,7 @@ fun TextFieldWidgetPreview() {
         TextFieldWidget(
             onValueChange = {
                 value = it
-            }, value = value,
-            validationCheckModel = ValidationCheckModel(null, true),
-            hint = "hint"
+            }, value = value, validationCheckModel = ValidationCheckModel(null, true), hint = "hint"
         )
     }
 }

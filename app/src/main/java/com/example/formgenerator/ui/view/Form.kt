@@ -76,31 +76,31 @@ fun Form(viewModel: MainViewModel) {
 
     Scaffold(Modifier.padding(all = 32.dp),
         bottomBar = {
-        Row(
-            modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Button(modifier = Modifier.weight(0.5f), onClick = {
-                previousScreen.invoke()
-            }) {
-                Text(text = "previous")
-            }
-            Spacer(modifier = Modifier.width(24.dp))
-            Button(modifier = Modifier.weight(0.5f), /*enabled = enabled,*/
-                onClick = {
-                    if (validationCheckModels.all {
-                            it.valid
-                        }
-                    ) {
-                        nextScreen.invoke()
-                    } else {
-                        shouldShowValidationError = true
-                    }
-                }
+            Row(
+                modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                Text(text = "next")
+                Button(modifier = Modifier.weight(0.5f), onClick = {
+                    previousScreen.invoke()
+                }) {
+                    Text(text = "previous")
+                }
+                Spacer(modifier = Modifier.width(24.dp))
+                Button(modifier = Modifier.weight(0.5f), /*enabled = enabled,*/
+                    onClick = {
+                        if (validationCheckModels.all {
+                                it.valid
+                            }
+                        ) {
+                            nextScreen.invoke()
+                        } else {
+                            shouldShowValidationError = true
+                        }
+                    }
+                ) {
+                    Text(text = "next")
+                }
             }
-        }
-    }) {
+        }) {
         screenConfigs.getOrNull(currentScreen)?.let { config ->
 
             // first we check if the screen dependency condition is true as the screen is either visible or invisible by dependency condition
@@ -113,10 +113,7 @@ fun Form(viewModel: MainViewModel) {
                 formValue = formValueState,
                 onValueChange = onValueChange,
                 validationCheckModels = validationCheckModels,
-                shouldShowValidationError = shouldShowValidationError,
-                onShouldShowValidationErrorChange = {
-                    shouldShowValidationError = it
-                }
+                shouldShowValidationError = shouldShowValidationError
             )
             // if the screen dependency condition is false so we should skip the screen
             else {

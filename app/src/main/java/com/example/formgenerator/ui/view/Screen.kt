@@ -20,19 +20,17 @@ fun Screen(
     onValueChange: (Map<String, Any>) -> Unit,
     validationCheckModels: MutableList<ValidationCheckModel>,
     shouldShowValidationError: Boolean,
-    onShouldShowValidationErrorChange: (Boolean) -> Unit
 ) {
     val widgetConfigs = screenConfig.widgetConfigs
 
-
     // we clear the list as the whole screen is being recomposed after value change so the previous validation errors are useless
     validationCheckModels.clear()
-    Column( //TODO : change it to lazyColumn
+    Column(
+        //TODO : change it to lazyColumn
         Modifier
             .padding(paddingValues)
             .fillMaxSize(),
         verticalArrangement = Arrangement.Top,
-//        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         widgetConfigs.forEach { widgetConfig ->
             // we check the dependency condition of the widget
@@ -53,7 +51,6 @@ fun Screen(
                     widgetConfig = widgetConfig,
                     value = formValue[widgetConfig.dataPath],
                     onValueChange = { value ->
-                        onShouldShowValidationErrorChange(true)
                         onValueChange.invoke(value)
                     },
                     validationCheckModel = if (shouldShowValidationError) validationCheckModel else ValidationCheckModel(
@@ -82,8 +79,7 @@ fun PreviewScreen() {
                     valid = false
                 )
             ),
-            shouldShowValidationError = true,
-            onShouldShowValidationErrorChange = {}
+            shouldShowValidationError = true
         )
     }
 }

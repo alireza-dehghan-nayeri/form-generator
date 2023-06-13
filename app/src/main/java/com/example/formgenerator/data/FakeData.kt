@@ -5,7 +5,7 @@ data class FakeData(
 ) {
     companion object {
         const val formConfigJson =
-"""
+            """
 {
   "formConfig":{
     "id":1,
@@ -39,7 +39,8 @@ data class FakeData(
                 "type":"TEXT_FIELD",
                 "dependencies":[],
                 "dataPath":"age",
-                "hint":"Enter your age"
+                "hint":"Enter your age",
+                "keyboardType":"Number"
               },
               {
                 "id":10,
@@ -153,13 +154,5 @@ data class FakeData(
 }
 """
 
-        const val formValueJson = """
-    {
-  "firstName":"",
-  "lastName":"",
-  "age": 0,
-  "income": 0
-}
-"""
     }
 }
