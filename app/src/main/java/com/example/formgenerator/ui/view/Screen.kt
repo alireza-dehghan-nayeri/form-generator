@@ -27,7 +27,6 @@ fun Screen(
     // we clear the list as the whole screen is being recomposed after value change so the previous validation errors are useless
     validationCheckModels.clear()
     Column(
-        //TODO : change it to lazyColumn
         Modifier
             .padding(paddingValues)
             .fillMaxSize(),
