@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -32,6 +33,7 @@ fun Screen(
             .fillMaxSize(),
         verticalArrangement = Arrangement.Top,
     ) {
+        screenConfig.title?.let { Text(text = it) }
         widgetConfigs.forEach { widgetConfig ->
             // we check the dependency condition of the widget
             if (dependencyHandler(
@@ -70,7 +72,7 @@ fun PreviewScreen() {
     FormGeneratorTheme {
         Screen(
             paddingValues = PaddingValues(24.dp),
-            screenConfig = ScreenConfig(dependencies = listOf(), id = 1, widgetConfigs = listOf()),
+            screenConfig = ScreenConfig(dependencies = listOf(), id = 1, widgetConfigs = listOf(), title = "title"),
             formValue = mapOf(),
             onValueChange = {},
             validationCheckModels = mutableListOf(

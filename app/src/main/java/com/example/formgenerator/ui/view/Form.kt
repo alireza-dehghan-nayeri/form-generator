@@ -91,6 +91,7 @@ fun Form(viewModel: MainViewModel) {
                                 it.valid
                             }
                         ) {
+                            shouldShowValidationError = true
                             nextScreen.invoke()
                         } else {
                             shouldShowValidationError = true
@@ -118,6 +119,7 @@ fun Form(viewModel: MainViewModel) {
             // if the screen dependency condition is false so we should skip the screen
             else {
                 if (lastScreen <= currentScreen) {
+                    // todo: check for validations ??????
                     nextScreen.invoke()
                 }
                 if (lastScreen > currentScreen) {

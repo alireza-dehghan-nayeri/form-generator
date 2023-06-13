@@ -3,7 +3,388 @@ package com.example.formgenerator.data
 data class FakeData(
     val formConfigJson: String
 ) {
+
+
     companion object {
+
+        const val formConfigJsonCancer =
+            """
+                {
+  "formConfig": {
+    "id": 1,
+    "screenConfigs": [
+      {
+        "id": 1,
+        "title": "Personal Information",
+        "widgetConfigs": [
+          {
+            "id": 1,
+            "type": "TEXT_FIELD",
+            "dataPath": "firstName",
+            "validations": [
+              {
+                "type": "REQUIRED",
+                "message": "This field can not be empty",
+                "dependencies": []
+              }
+            ],
+            "dependencies": [],
+            "hint": "Enter your first name",
+            "keyboardType": "Text"
+          },
+          {
+            "id": 2,
+            "type": "TEXT_FIELD",
+            "dataPath": "lastName",
+            "validations": [
+              {
+                "type": "REQUIRED",
+                "message": "This field can not be empty",
+                "dependencies": []
+              }
+            ],
+            "dependencies": [],
+            "hint": "Enter Your Lastname",
+            "keyboardType": "Text"
+          },
+          {
+            "id": 3,
+            "type": "TEXT_FIELD",
+            "dataPath": "phoneNumber",
+            "validations": [
+              {
+                "type": "REQUIRED",
+                "message": "This field can not be empty",
+                "dependencies": []
+              }
+            ],
+            "dependencies": [],
+            "hint": "Enter Your Phone Number",
+            "keyboardType": "Phone"
+          },
+          {
+            "id": 4,
+            "type": "DROP_DOWN_MENU",
+            "dataPath": "gender",
+            "validations": [
+              {
+                "type": "REQUIRED",
+                "message": "This field can not be empty",
+                "dependencies": []
+              }
+            ],
+            "dependencies": [],
+            "options": [
+              "Male",
+              "Female"
+            ]
+          }
+        ],
+        "dependencies": []
+      },
+      {
+        "id": 2,
+        "title": "\"Physical Condition\"",
+        "widgetConfigs": [
+          {
+            "id": 5,
+            "type": "TEXT_FIELD",
+            "dataPath": "weight",
+            "validations": [
+              {
+                "type": "REQUIRED",
+                "message": "This field can not be empty",
+                "dependencies": []
+              }
+            ],
+            "dependencies": [],
+            "hint": "Enter your weight",
+            "keyboardType": "Number"
+          },
+          {
+            "id": 6,
+            "type": "TEXT_FIELD",
+            "dataPath": "height",
+            "validations": [
+              {
+                "type": "REQUIRED",
+                "message": "This field can not be empty",
+                "dependencies": []
+              }
+            ],
+            "dependencies": [],
+            "hint": "Enter your height",
+            "keyboardType": "Number"
+          },
+          {
+            "id": 7,
+            "type": "RADIO_GROUP",
+            "dataPath": "physicallyActive",
+            "validations": [
+              {
+                "type": "REQUIRED",
+                "message": "This field can not be empty",
+                "dependencies": []
+              }
+            ],
+            "dependencies": [],
+            "text": "Are you phisically active?",
+            "items": [
+              "Yes",
+              "No"
+            ]
+          },
+          {
+            "id": 8,
+            "type": "RADIO_GROUP",
+            "dataPath": "hasDenseBreast",
+            "validations": [
+              {
+                "type": "REQUIRED",
+                "message": "This field can not be empty",
+                "dependencies": []
+              }
+            ],
+            "dependencies": [],
+            "text": "Do you have dense breast?",
+            "items": [
+              "Yes",
+              "No"
+            ]
+          }
+        ],
+        "dependencies": []
+      },
+      {
+        "id": 3,
+        "title": "\"Reproductive History\"",
+        "widgetConfigs": [
+          {
+            "id": 9,
+            "type": "TEXT_FIELD",
+            "dataPath": "menstrualPeriodAge",
+            "validations": [
+              {
+                "type": "REQUIRED",
+                "message": "This field can not be empty",
+                "dependencies": []
+              }
+            ],
+            "dependencies": [],
+            "hint": "Enter your age of first menstrual periods",
+            "keyboardType": "Number"
+          },
+          {
+            "id": 10,
+            "type": "RADIO_GROUP",
+            "dataPath": "beenPregnant",
+            "validations": [
+              {
+                "type": "REQUIRED",
+                "message": "This field can not be empty",
+                "dependencies": []
+              }
+            ],
+            "dependencies": [],
+            "text": "Have you ever been pregnant?",
+            "items": [
+              "Yes",
+              "No"
+            ]
+          },
+          {
+            "id": 11,
+            "type": "TEXT_FIELD",
+            "dataPath": "pregnancyAge",
+            "validations": [
+              {
+                "type": "REQUIRED",
+                "message": "This field can not be empty",
+                "dependencies": []
+              }
+            ],
+            "dependencies": [],
+            "hint": "Enter your age of first pregnancy",
+            "keyboardType": "Number"
+          },
+          {
+            "id": 12,
+            "type": "RADIO_GROUP",
+            "dataPath": "menopaused",
+            "validations": [
+              {
+                "type": "REQUIRED",
+                "message": "This field can not be empty",
+                "dependencies": []
+              }
+            ],
+            "dependencies": [],
+            "text": "are you menopaused",
+            "items": [
+              "Yes",
+              "No"
+            ]
+          },
+          {
+            "id": 13,
+            "type": "TEXT_FIELD",
+            "dataPath": "menopauseAge",
+            "validations": [
+              {
+                "type": "REQUIRED",
+                "message": "This field can not be empty",
+                "dependencies": []
+              }
+            ],
+            "dependencies": [],
+            "hint": "Enter your age of menopause",
+            "keyboardType": "Number"
+          }
+        ],
+        "dependencies": []
+      },
+      {
+        "id": 4,
+        "title": "\"Health\"",
+        "widgetConfigs": [
+          {
+            "id": 14,
+            "type": "RADIO_GROUP",
+            "dataPath": "drinker",
+            "validations": [
+              {
+                "type": "REQUIRED",
+                "message": "This field can not be empty",
+                "dependencies": []
+              }
+            ],
+            "dependencies": [],
+            "text": "are you a drinker?",
+            "items": [
+              "Yes",
+              "No"
+            ]
+          },
+          {
+            "id": 15,
+            "type": "RADIO_GROUP",
+            "dataPath": "diagnosedBefore",
+            "validations": [
+              {
+                "type": "REQUIRED",
+                "message": "This field can not be empty",
+                "dependencies": []
+              }
+            ],
+            "dependencies": [],
+            "text": "have you been diagnosed before?",
+            "items": [
+              "Yes",
+              "No"
+            ]
+          },
+          {
+            "id": 16,
+            "type": "RADIO_GROUP",
+            "dataPath": "exposedToDES",
+            "validations": [
+              {
+                "type": "REQUIRED",
+                "message": "This field can not be empty",
+                "dependencies": []
+              }
+            ],
+            "dependencies": [],
+            "text": "have you or your mother taken DES drug?",
+            "items": [
+              "Yes",
+              "No"
+            ]
+          },
+          {
+            "id": 17,
+            "type": "RADIO_GROUP",
+            "dataPath": "usedHormones",
+            "validations": [
+              {
+                "type": "REQUIRED",
+                "message": "This field can not be empty",
+                "dependencies": []
+              }
+            ],
+            "dependencies": [],
+            "text": "Have you used hormon drugs?",
+            "items": [
+              "Yes",
+              "No"
+            ]
+          },
+          {
+            "id": 18,
+            "type": "RADIO_GROUP",
+            "dataPath": "hadRadiationTherapy",
+            "validations": [
+              {
+                "type": "REQUIRED",
+                "message": "This field can not be empty",
+                "dependencies": []
+              }
+            ],
+            "dependencies": [],
+            "text": "Have you done radiation therapy?",
+            "items": [
+              "Yes",
+              "No"
+            ]
+          }
+        ],
+        "dependencies": []
+      },
+      {
+        "id": 5,
+        "title": "\"Family History\"",
+        "widgetConfigs": [
+          {
+            "id": 19,
+            "type": "RADIO_GROUP",
+            "dataPath": "breastCancerHistoryInFamily",
+            "validations": [
+              {
+                "type": "REQUIRED",
+                "message": "This field can not be empty",
+                "dependencies": []
+              }
+            ],
+            "dependencies": [],
+            "text": "Have any members of your family diagnosed with breast cancer?",
+            "items": [
+              "Yes",
+              "No"
+            ]
+          },
+          {
+            "id": 20,
+            "type": "TEXT_FIELD",
+            "dataPath": "diagnosedReletive",
+            "validations": [
+              {
+                "type": "REQUIRED",
+                "message": "This field can not be empty",
+                "dependencies": []
+              }
+            ],
+            "dependencies": [],
+            "hint": "Enter your relation with that member",
+            "keyboardType": "Text"
+          }
+        ],
+        "dependencies": []
+      }
+    ]
+  }
+}
+            """
+
         const val formConfigJson =
             """
 {

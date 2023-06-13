@@ -9,6 +9,11 @@ data class WidgetConfig(
     val hint: String?,
     val text: String?,
     val validations: List<ValidationConfig>?,
-    val keyboardType: String?
+    val keyboardType: String?,
+    val items: List<String>?,
+    val options: List<String>?
 )
+
+// todo: break into widget classes
+
 

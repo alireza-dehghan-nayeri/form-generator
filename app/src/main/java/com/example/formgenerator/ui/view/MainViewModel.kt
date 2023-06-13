@@ -11,7 +11,7 @@ import com.google.gson.Gson
 class MainViewModel : ViewModel() {
 
     val form: InputJson? =
-        Gson().fromJson(FakeData.formConfigJson, InputJson::class.java)
+        Gson().fromJson(FakeData.formConfigJsonCancer, InputJson::class.java)
 
     val formValue = mutableStateMapOf<String, Any?>(
 

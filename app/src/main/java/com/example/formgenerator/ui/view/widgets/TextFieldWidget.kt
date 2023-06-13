@@ -41,9 +41,7 @@ fun TextFieldWidget(
             backgroundColor = Color.Transparent,
             unfocusedIndicatorColor = MaterialTheme.colors.secondary,
 
-            ), label = {
-            Text(text = "label")
-        },
+            ),
             keyboardOptions = KeyboardOptions(
                 keyboardType = when (keyboardType) {
                     "Text" -> KeyboardType.Text

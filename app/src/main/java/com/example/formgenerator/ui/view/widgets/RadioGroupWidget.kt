@@ -20,6 +20,7 @@ fun RadioGroupWidget(
     items: List<String>,
     onValueChange: (String) -> Unit,
     validationCheckModel: ValidationCheckModel,
+    text: String
 ) {
 
     // todo : add validation
@@ -29,7 +30,7 @@ fun RadioGroupWidget(
     }
 
     Column {
-        Text(text = "question")
+        Text(text = text)
         Row {
             items.forEach {
                 Row(verticalAlignment = Alignment.CenterVertically) {
@@ -59,6 +60,7 @@ fun RadioGroupWidgetPreview() {
                     it
                 },
                 validationCheckModel = ValidationCheckModel("", false),
+                text = "question"
             )
         }
     }
