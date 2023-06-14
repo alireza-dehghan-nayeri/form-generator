@@ -16,7 +16,7 @@ data class FakeData(
   "breastCancerHistoryInFamily": "Yes",
   "hasDenseBreast": "No",
   "hadRadiationTherapy": "No",
-  "diagnosedReletive": "asdasdasd",
+  "diagnosedRelative": "asdasdasd",
   "weight": "a",
   "firstName": "a",
   "exposedToDES": "No",
