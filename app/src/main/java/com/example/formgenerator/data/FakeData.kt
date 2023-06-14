@@ -7,6 +7,27 @@ data class FakeData(
 
     companion object {
 
+        const val formValueJsonCancer =
+            """
+                {
+  "height": "a",
+  "physicallyActive": "No",
+  "usedHormones": "No",
+  "breastCancerHistoryInFamily": "Yes",
+  "hasDenseBreast": "No",
+  "hadRadiationTherapy": "No",
+  "diagnosedReletive": "asdasdasd",
+  "weight": "a",
+  "firstName": "a",
+  "exposedToDES": "No",
+  "phoneNumber": "a",
+  "diagnosedBefore": "No",
+  "drinker": "No",
+  "lastName": "a",
+  "gender": "Male"
+}
+            """
+
         const val formConfigJsonCancer =
             """
                 {
