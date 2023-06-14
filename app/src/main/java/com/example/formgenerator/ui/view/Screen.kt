@@ -5,6 +5,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.Divider
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -29,10 +31,12 @@ fun Screen(
     Column(
         Modifier
             .padding(paddingValues)
+            .padding(32.dp)
             .fillMaxSize(),
         verticalArrangement = Arrangement.Top,
     ) {
-        screenConfig.title?.let { Text(text = it) }
+        screenConfig.title?.let { Text(modifier = Modifier.padding(bottom = 8.dp),text = it, style = MaterialTheme.typography.h6 ) }
+        Divider()
         widgetConfigs.forEach { widgetConfig ->
             // we check the dependency condition of the widget
             if (dependencyHandler(

@@ -31,7 +31,7 @@ fun TextFieldWidget(
     keyboardType: String = "Text"
 ) {
     Column(
-        modifier = Modifier.padding(bottom = 8.dp)
+        modifier = Modifier.padding(top = 8.dp)
     ) {
         TextField(modifier = Modifier.fillMaxWidth(), value = value, onValueChange = {
             onValueChange(it)

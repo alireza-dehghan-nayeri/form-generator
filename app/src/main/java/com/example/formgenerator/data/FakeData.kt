@@ -24,7 +24,8 @@ data class FakeData(
   "diagnosedBefore": "No",
   "drinker": "No",
   "lastName": "a",
-  "gender": "Male"
+  "gender": "Male",
+  "diagnosedRelatives":"mother"
 }
             """
 
@@ -340,7 +341,7 @@ data class FakeData(
           {
             "id": 20,
             "type": "TEXT_FIELD",
-            "dataPath": "diagnosedReletive",
+            "dataPath": "diagnosedRelatives",
             "validations": [
               {
                 "type": "REQUIRED",

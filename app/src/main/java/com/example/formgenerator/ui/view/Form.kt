@@ -5,6 +5,7 @@ import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -87,7 +88,8 @@ fun Form(viewModel: MainViewModel) {
         formValueState[it.keys.first().toString()] = it[it.keys.first()]
     }
 
-    Scaffold(modifier = Modifier.padding(all = 32.dp),
+    Scaffold(
+        modifier = Modifier,
         topBar = { ScreenTopAppBar(progress = progress) },
         bottomBar = {
             BottomAppBar(onPreviousScreenButtonClick = {
@@ -148,7 +150,7 @@ fun ScreenTopAppBar(progress: Float) {
         animationSpec = tween(durationMillis = 1500, easing = FastOutSlowInEasing)
     )
     Column() {
-        TopAppBar() {
+        TopAppBar(contentPadding = PaddingValues(start = 16.dp)) {
             Text(text = "Form Title")
         }
         LinearProgressIndicator(
@@ -165,7 +167,7 @@ fun BottomAppBar(
     onPreviousScreenButtonClick: () -> Unit
 ) {
     Row(
-        modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween
+        modifier = Modifier.fillMaxWidth().padding(32.dp), horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Button(modifier = Modifier.weight(0.5f), onClick = {
             onPreviousScreenButtonClick.invoke()
