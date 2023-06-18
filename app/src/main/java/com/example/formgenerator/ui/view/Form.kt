@@ -149,7 +149,7 @@ fun ScreenTopAppBar(progress: Float) {
         targetValue = progress,
         animationSpec = tween(durationMillis = 1500, easing = FastOutSlowInEasing)
     )
-    Column() {
+    Column {
         TopAppBar(contentPadding = PaddingValues(start = 16.dp)) {
             Text(text = "Form Title")
         }

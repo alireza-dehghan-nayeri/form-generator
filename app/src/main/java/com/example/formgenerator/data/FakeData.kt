@@ -10,21 +10,20 @@ data class FakeData(
         const val formValueJsonCancer =
             """
                 {
-  "height": "a",
+  "height": "165",
   "physicallyActive": "No",
   "usedHormones": "No",
   "breastCancerHistoryInFamily": "Yes",
   "hasDenseBreast": "No",
   "hadRadiationTherapy": "No",
-  "diagnosedRelative": "asdasdasd",
-  "weight": "a",
-  "firstName": "a",
+  "weight": "65",
+  "firstName": "alireza",
   "exposedToDES": "No",
-  "phoneNumber": "a",
+  "phoneNumber": "09156257687",
   "diagnosedBefore": "No",
   "drinker": "No",
-  "lastName": "a",
-  "gender": "Male",
+  "lastName": "dehghan",
+  "gender": "Female",
   "diagnosedRelatives":"mother"
 }
             """
@@ -214,7 +213,14 @@ data class FakeData(
                 "dependencies": []
               }
             ],
-            "dependencies": [],
+            "dependencies": [
+                {
+                "type":"VISIBILITY",
+                "rule":{
+                  "==" : [ { "var" : "beenPregnant" }, "Yes" ]
+                }
+            }
+            ],
             "hint": "Enter your age of first pregnancy",
             "keyboardType": "Number"
           },
@@ -241,7 +247,14 @@ data class FakeData(
                 "dependencies": []
               }
             ],
-            "dependencies": [],
+            "dependencies": [
+                {
+                "type":"VISIBILITY",
+                "rule":{
+                  "==" : [ { "var" : "menopause" }, "Yes" ]
+                }
+            }
+            ],
             "hint": "Enter your age of menopause",
             "keyboardType": "Number"
           }
@@ -349,7 +362,14 @@ data class FakeData(
                 "dependencies": []
               }
             ],
-            "dependencies": [],
+            "dependencies": [
+                {
+                "type":"VISIBILITY",
+                "rule":{
+                  "==" : [ { "var" : "breastCancerHistoryInFamily" }, "Yes" ]
+                }
+            }
+            ],
             "hint": "Enter your relation with that member",
             "keyboardType": "Text"
           }
