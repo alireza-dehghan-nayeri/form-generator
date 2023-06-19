@@ -30,17 +30,18 @@ fun TextFieldWidget(
     hint: String?,
     keyboardType: String = "Text"
 ) {
-    Column(
-        modifier = Modifier.padding(top = 8.dp)
-    ) {
-        TextField(modifier = Modifier.fillMaxWidth(), value = value, onValueChange = {
-            onValueChange(it)
-        }, placeholder = {
-            Text(text = hint ?: "")
-        }, isError = !validationCheckModel.valid, colors = TextFieldDefaults.textFieldColors(
-            backgroundColor = Color.Transparent,
-            unfocusedIndicatorColor = MaterialTheme.colors.secondary,
-
+    Column(modifier = Modifier.padding(top = 8.dp)) {
+        TextField(
+            modifier = Modifier.fillMaxWidth(),
+            value = value,
+            onValueChange = { onValueChange(it) },
+            placeholder = {
+                Text(text = hint ?: "")
+            },
+            isError = !validationCheckModel.valid,
+            colors = TextFieldDefaults.textFieldColors(
+                backgroundColor = Color.Transparent,
+                unfocusedIndicatorColor = MaterialTheme.colors.secondary,
             ),
             keyboardOptions = KeyboardOptions(
                 keyboardType = when (keyboardType) {
@@ -71,9 +72,10 @@ fun TextFieldWidgetPreview() {
     }
     FormGeneratorTheme {
         TextFieldWidget(
-            onValueChange = {
-                value = it
-            }, value = value, validationCheckModel = ValidationCheckModel(null, true), hint = "hint"
+            onValueChange = { value = it },
+            value = value,
+            validationCheckModel = ValidationCheckModel(null, true),
+            hint = "hint"
         )
     }
 }

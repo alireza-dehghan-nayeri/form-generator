@@ -47,7 +47,7 @@ fun Widget(
                 onValueChange(mapOf(Pair(widgetConfig.dataPath, it)))
             },
             validationCheckModel = validationCheckModel,
-            text = widgetConfig.text?:""
+            text = widgetConfig.text ?: ""
         )
 
         WidgetType.BOTTOM_SHEET_SINGLE_SELECT -> TODO()

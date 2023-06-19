@@ -3,10 +3,7 @@ package com.example.formgenerator.data
 data class FakeData(
     val formConfigJson: String
 ) {
-
-
     companion object {
-
         const val formValueJsonCancer =
             """
                 {
@@ -17,12 +14,12 @@ data class FakeData(
   "hasDenseBreast": "No",
   "hadRadiationTherapy": "No",
   "weight": "65",
-  "firstName": "alireza",
+  "firstName": "Alireza",
   "exposedToDES": "No",
   "phoneNumber": "09156257687",
   "diagnosedBefore": "No",
   "drinker": "No",
-  "lastName": "dehghan",
+  "lastName": "Dehghan",
   "gender": "Female",
   "diagnosedRelatives":"mother"
 }
@@ -65,7 +62,7 @@ data class FakeData(
               }
             ],
             "dependencies": [],
-            "hint": "Enter Your Lastname",
+            "hint": "Enter Your last name",
             "keyboardType": "Text"
           },
           {
@@ -80,7 +77,7 @@ data class FakeData(
               }
             ],
             "dependencies": [],
-            "hint": "Enter Your Phone Number",
+            "hint": "Enter your phone number",
             "keyboardType": "Phone"
           },
           {
@@ -230,7 +227,7 @@ data class FakeData(
             "dataPath": "menopause",
             "validations": [],
             "dependencies": [],
-            "text": "Are you menopause",
+            "text": "Are you menopause?",
             "items": [
               "Yes",
               "No"
@@ -278,7 +275,7 @@ data class FakeData(
             "dataPath": "drinker",
             "validations": [],
             "dependencies": [],
-            "text": "are you a drinker?",
+            "text": "Are you a drinker?",
             "items": [
               "Yes",
               "No"
@@ -290,7 +287,7 @@ data class FakeData(
             "dataPath": "diagnosedBefore",
             "validations": [],
             "dependencies": [],
-            "text": "have you been diagnosed before?",
+            "text": "Have you been diagnosed before?",
             "items": [
               "Yes",
               "No"
@@ -428,7 +425,7 @@ data class FakeData(
                 "validations":[
                     {
                         "type":"DEPENDENT",
-                        "message":"father's age should be more than age",
+                        "message":"Father's age should be more than age",
                         "dependencies":[
                             {
                                 "type":"VISIBILITY",
@@ -530,6 +527,5 @@ data class FakeData(
   }
 }
 """
-
     }
 }

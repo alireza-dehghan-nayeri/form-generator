@@ -4,7 +4,6 @@ import androidx.compose.runtime.Composable
 import com.example.formgenerator.model.ValidationType
 import com.example.formgenerator.model.WidgetConfig
 
-
 data class ValidationCheckModel(
     var message: String?,
     var valid: Boolean

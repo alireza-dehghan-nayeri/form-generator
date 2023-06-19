@@ -29,13 +29,19 @@ fun Screen(
     // we clear the list as the whole screen is being recomposed after value change so the previous validation errors are useless
     validationCheckModels.clear()
     Column(
-        Modifier
+        modifier = Modifier
             .padding(paddingValues)
             .padding(32.dp)
             .fillMaxSize(),
         verticalArrangement = Arrangement.Top,
     ) {
-        screenConfig.title?.let { Text(modifier = Modifier.padding(bottom = 8.dp),text = it, style = MaterialTheme.typography.h6 ) }
+        screenConfig.title?.let {
+            Text(
+                modifier = Modifier.padding(bottom = 8.dp),
+                text = it,
+                style = MaterialTheme.typography.h6
+            )
+        }
         Divider()
         widgetConfigs.forEach { widgetConfig ->
             // we check the dependency condition of the widget
@@ -44,7 +50,7 @@ fun Screen(
                     formValue = formValue
                 )
             ) {
-                // we check the if the widget value is valid
+                // we check if the widget value is valid
                 val validationCheckModel = widgetValidationHandler(
                     widgetConfig = widgetConfig,
                     formValue = formValue
@@ -68,14 +74,18 @@ fun Screen(
     }
 }
 
-
 @Preview
 @Composable
 fun PreviewScreen() {
     FormGeneratorTheme {
         Screen(
             paddingValues = PaddingValues(24.dp),
-            screenConfig = ScreenConfig(dependencies = listOf(), id = 1, widgetConfigs = listOf(), title = "title"),
+            screenConfig = ScreenConfig(
+                dependencies = listOf(),
+                id = 1,
+                widgetConfigs = listOf(),
+                title = "title"
+            ),
             formValue = mapOf(),
             onValueChange = {},
             validationCheckModels = mutableListOf(

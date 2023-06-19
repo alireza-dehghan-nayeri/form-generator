@@ -1,7 +1,6 @@
 package com.example.formgenerator
 
 import com.google.gson.Gson
-import java.lang.Exception
 
 fun main() {
     val name = "ALIREZA"
@@ -18,11 +17,9 @@ fun main() {
         }
     }
 
-
     val jsonString = Gson().toJson(tempPair).toString()
     println("json string from map:")
     println(jsonString)
-
 
     val mapOfJsonString = Gson().fromJson(jsonString, Map::class.java)
     println("map from json string")
@@ -36,7 +33,7 @@ fun main() {
         } else {
             try {
                 tempMap = tempMap[it] as Map<*, *>
-            }catch (e:Exception){
+            } catch (e: Exception) {
                 println(e.message)
             }
         }
@@ -44,5 +41,4 @@ fun main() {
 
     println("Widget value:")
     println(widgetValue.toString())
-
 }

@@ -30,7 +30,6 @@ import androidx.compose.ui.unit.dp
 import com.example.formgenerator.ui.theme.FormGeneratorTheme
 import com.google.gson.GsonBuilder
 
-
 @Composable
 fun Form(viewModel: MainViewModel) {
 
@@ -53,7 +52,8 @@ fun Form(viewModel: MainViewModel) {
         mutableStateOf(1f / screenConfigs.size.toFloat())
     }
 
-    // as there might be a dependency between screens which may lead to a screen being invisible we keep track of the last screen
+    // as there might be a dependency between screens which may lead to a screen being invisible
+    // we keep track of the last screen
     var lastScreen by remember {
         mutableStateOf(0)
     }
@@ -108,7 +108,8 @@ fun Form(viewModel: MainViewModel) {
         }) {
         screenConfigs.getOrNull(currentScreen)?.let { config ->
 
-            // first we check if the screen dependency condition is true as the screen is either visible or invisible by dependency condition
+            // first we check if the screen dependency condition is true as the screen is either
+            // visible or invisible by dependency condition
             if (dependencyHandler(
                     dependencies = config.dependencies, formValue = formValueState
                 )
@@ -167,7 +168,10 @@ fun BottomAppBar(
     onPreviousScreenButtonClick: () -> Unit
 ) {
     Row(
-        modifier = Modifier.fillMaxWidth().padding(32.dp), horizontalArrangement = Arrangement.SpaceBetween
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(32.dp),
+        horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Button(modifier = Modifier.weight(0.5f), onClick = {
             onPreviousScreenButtonClick.invoke()

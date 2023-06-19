@@ -48,18 +48,14 @@ fun DropDownMenuWidget(
                 value = value.ifBlank { text },
                 onValueChange = { },
                 trailingIcon = {
-                    ExposedDropdownMenuDefaults.TrailingIcon(
-                        expanded = expanded
-                    )
+                    ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
                 },
                 colors = ExposedDropdownMenuDefaults.textFieldColors()
             )
             ExposedDropdownMenu(
                 modifier = Modifier.fillMaxWidth(),
                 expanded = expanded,
-                onDismissRequest = {
-                    expanded = false
-                }
+                onDismissRequest = { expanded = false }
             ) {
                 options.forEach { selectionOption ->
                     DropdownMenuItem(
@@ -92,8 +88,7 @@ fun DropDownMenuWidgetPreview() {
                     "Option 4",
                     "Option 5"
                 ),
-                onValueChange = {
-                },
+                onValueChange = {},
                 validationCheckModel = ValidationCheckModel("", false),
                 text = "question",
                 value = ""

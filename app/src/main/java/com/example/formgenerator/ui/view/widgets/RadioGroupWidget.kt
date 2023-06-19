@@ -30,9 +30,9 @@ fun RadioGroupWidget(
         Row {
             items.forEach {
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    RadioButton(selected = it == value, onClick = {
-                        onValueChange(it)
-                    })
+                    RadioButton(selected = it == value,
+                        onClick = { onValueChange(it) }
+                    )
                     Text(text = it)
                 }
             }
@@ -53,8 +53,7 @@ fun RadioGroupWidgetPreview() {
                     "Option 1",
                     "Option 2"
                 ),
-                onValueChange = {
-                },
+                onValueChange = {},
                 validationCheckModel = ValidationCheckModel("", false),
                 text = "question",
                 value = ""
